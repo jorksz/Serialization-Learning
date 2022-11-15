@@ -1,0 +1,28 @@
+// Example IDL file for our monster's schema.
+
+namespace flatbuf.message;
+
+table Process {
+  factory:string;
+  namespace:string;
+  name:string;
+  id:string;
+  version:double;
+  loopmode:string;
+  ouputs:[Output];   // Vector of tables.
+  inputs:[Input];        // Vector of structs.
+  title:string;
+}
+
+table Input {
+  inputname:string;
+  value:string;
+}
+
+table Output {
+  outputname:string;
+  title:string;
+  id:string;
+}
+
+root_type Process;

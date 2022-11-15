@@ -1,9 +1,11 @@
-package protobuf.Main;
+package protobuf.main;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import com.google.protobuf.InvalidProtocolBufferException;
 import protobuf.message.ProcessDes;
+
+import java.nio.charset.StandardCharsets;
 
 public class ProtobufMain {
 
@@ -19,7 +21,6 @@ public class ProtobufMain {
         process.setLoopMode("EACH_MATCH");
         initInput(process);
         initOut(process);
-        System.out.println(process);
         // 写出文件
         byte[] bytes = process.build().toByteArray();
         FileUtil.writeBytes(bytes, "process.protobuf");
@@ -27,9 +28,11 @@ public class ProtobufMain {
         // 读取文件
         long time = System.currentTimeMillis();
         byte[] result = FileUtil.readBytes("process.protobuf");
+        String str = FileUtil.readString("process.protobuf", StandardCharsets.UTF_8);
+        System.out.println(str);
         ProcessDes.Process resultProcess = ProcessDes.Process.parseFrom(result);
         System.out.println(DateUtil.formatBetween(System.currentTimeMillis() - time));
-        System.out.println(resultProcess);
+        System.out.println(resultProcess.getFactory());
     }
 
     public static void initInput( ProcessDes.Process.Builder process) {
