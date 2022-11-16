@@ -1,15 +1,17 @@
-package protobuf.main;
+package protobuf.start;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import com.google.protobuf.InvalidProtocolBufferException;
 import protobuf.message.ProcessDes;
 
-import java.nio.charset.StandardCharsets;
+import java.io.File;
 
-public class ProtobufMain {
+public class ProtobufRunner {
 
-    public static void main(String[] args) throws InvalidProtocolBufferException {
+    public static final String FILE_NAME = "process.protobuf";
+
+    public static void runProtobuf() throws InvalidProtocolBufferException {
         // 填充值
         ProcessDes.Process.Builder process = ProcessDes.Process.newBuilder();
         process.setFactory("iobjects_modelingtools");
@@ -22,17 +24,21 @@ public class ProtobufMain {
         initInput(process);
         initOut(process);
         // 写出文件
+        System.out.println("protobuf 开始序列化和反序列化测试");
+        long time = System.currentTimeMillis();
         byte[] bytes = process.build().toByteArray();
-        FileUtil.writeBytes(bytes, "process.protobuf");
+        FileUtil.writeBytes(bytes, FILE_NAME);
 
         // 读取文件
-        long time = System.currentTimeMillis();
-        byte[] result = FileUtil.readBytes("process.protobuf");
-        String str = FileUtil.readString("process.protobuf", StandardCharsets.UTF_8);
-        System.out.println(str);
+        byte[] result = FileUtil.readBytes(FILE_NAME);
         ProcessDes.Process resultProcess = ProcessDes.Process.parseFrom(result);
-        System.out.println(DateUtil.formatBetween(System.currentTimeMillis() - time));
-        System.out.println(resultProcess.getFactory());
+        System.out.println("protobuf序列化和反序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - time));
+
+        System.out.println("protobuf 持久化文件process.protobuf大小:" + FileUtil.size(new File(FILE_NAME)));
+    }
+
+    public static void main(String[] args) throws InvalidProtocolBufferException {
+       runProtobuf();
     }
 
     public static void initInput( ProcessDes.Process.Builder process) {
