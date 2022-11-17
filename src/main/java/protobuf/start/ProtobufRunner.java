@@ -27,12 +27,17 @@ public class ProtobufRunner {
         System.out.println("protobuf 开始序列化和反序列化测试");
         long time = System.currentTimeMillis();
         byte[] bytes = process.build().toByteArray();
+        System.out.println("protobuf序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - time));
+        long writeFile = System.currentTimeMillis();
         FileUtil.writeBytes(bytes, FILE_NAME);
+        System.out.println("protobuf 字节持久化耗时:" + DateUtil.formatBetween(System.currentTimeMillis() - writeFile));
 
         // 读取文件
+        long deserializationTime = System.currentTimeMillis();
         byte[] result = FileUtil.readBytes(FILE_NAME);
-        ProcessDes.Process resultProcess = ProcessDes.Process.parseFrom(result);
-        System.out.println("protobuf序列化和反序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - time));
+        ProcessDes.Process.parseFrom(result);
+        System.out.println("protobuf 反序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - deserializationTime));
+        System.out.println("protobuf 序列化&持久化&反序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - time));
 
        // System.out.println("protobuf 持久化文件process.protobuf大小:" + FileUtil.size(new File(FILE_NAME)));
     }

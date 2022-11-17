@@ -11,7 +11,9 @@ public class SerializationProtocolSimpleTest {
 
     public static void main(String[] args) throws IOException {
         ProtobufRunner.runProtobuf();
+        System.out.println(" ");
         FlatBuffersRunner.runFlatBuffers();
+        System.out.println(" ");
         XmlRunner.runningXml();
     }
 }

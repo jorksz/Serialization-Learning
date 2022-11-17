@@ -30,6 +30,10 @@ public class FlatBuffersRunner {
         long time = System.currentTimeMillis();
         // [2] 序列化 Process 对象为字节码
         byte[] buffer = builder.sizedByteArray();
+        System.out.println("flatbuf 序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - time));
+        long writeFile = System.currentTimeMillis();
+        FileUtil.writeBytes(buffer, FILE_NAME);
+        System.out.println("flatbuf 字节持久化耗时:" + DateUtil.formatBetween(System.currentTimeMillis() - writeFile));
         // [3] 保存字节码到文件，也可以进行网络传输
         FileUtil.writeBytes(buffer, FILE_NAME);
         /*FileOutputStream out = new FileOutputStream(FILE_NAME);
@@ -42,11 +46,12 @@ public class FlatBuffersRunner {
         byte[] data = new byte[(int)f.length()];
         f.readFully(data);
         f.close();*/
+        long deserializationTime = System.currentTimeMillis();
         byte[] data = FileUtil.readBytes(FILE_NAME);
         ByteBuffer bb = ByteBuffer.wrap(data);
-        Process process = Process.getRootAsProcess(bb);
-        System.out.println("flatbuf 序列化和反序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - time));
-       // System.out.println("flatbuf 持久化文件process.flatbuf大小:" + FileUtil.size(new File(FILE_NAME)));
+        Process.getRootAsProcess(bb);
+        System.out.println("flatbuf 反序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - deserializationTime));
+        System.out.println("flatbuf 序列化&持久化&反序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - time));
     }
 
     public static void main(String[] args) throws IOException {

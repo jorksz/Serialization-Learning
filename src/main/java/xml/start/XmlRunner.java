@@ -66,8 +66,10 @@ public class XmlRunner {
         Element outputsE = createOutputsElements(emptyDoc, process);
         processE.appendChild(outputsE);
         emptyDoc.appendChild(processE);
+        System.out.println("xml 序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - startSerialization));
+        long deserializationXmlTime = System.currentTimeMillis();
         XmlUtil.toFile(emptyDoc, FILE_NAME);
-        System.out.println("xml序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - startSerialization));
+        System.out.println("xml 持久化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - deserializationXmlTime));
 
         // 反序列化
         long deserializeCostTime = System.currentTimeMillis();
@@ -84,8 +86,7 @@ public class XmlRunner {
         initInput(processElements, deserializeProcess);
         initOutput(processElements, deserializeProcess);
         System.out.println("xml反序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - deserializeCostTime));
-        System.out.println(deserializeProcess.factory);
-        System.out.println("xml序列化和反序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - time));
+        System.out.println("xml序列化&持久化&反序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - time));
     }
 
     public static Element createOutputsElements(Document emptyDoc, Process process) {
