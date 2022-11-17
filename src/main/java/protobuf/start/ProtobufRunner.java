@@ -34,7 +34,7 @@ public class ProtobufRunner {
         ProcessDes.Process resultProcess = ProcessDes.Process.parseFrom(result);
         System.out.println("protobuf序列化和反序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - time));
 
-        System.out.println("protobuf 持久化文件process.protobuf大小:" + FileUtil.size(new File(FILE_NAME)));
+       // System.out.println("protobuf 持久化文件process.protobuf大小:" + FileUtil.size(new File(FILE_NAME)));
     }
 
     public static void main(String[] args) throws InvalidProtocolBufferException {
@@ -42,12 +42,15 @@ public class ProtobufRunner {
     }
 
     public static void initInput( ProcessDes.Process.Builder process) {
-        for (int i = 0; i < 2; i++) {
-            ProcessDes.Process.Input.Builder input = new ProcessDes.Process.Input.Builder();
-            input.setInputName("recursion");
-            input.setValue("true");
-            process.addInputs(input);
-        }
+        ProcessDes.Process.Input.Builder input = new ProcessDes.Process.Input.Builder();
+        input.setInputName("recursion");
+        input.setValue("true");
+        process.addInputs(input);
+
+        ProcessDes.Process.Input.Builder input2 = new ProcessDes.Process.Input.Builder();
+        input2.setInputName("pattern");
+        input.setValue("");
+        process.addInputs(input2);
     }
 
     public static void initOut( ProcessDes.Process.Builder process) {

@@ -12,6 +12,18 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+    <repositories>
+        <repository>
+            <id>supermap</id>
+            <url>https://maven.supermap.io/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
 
     <dependencies>
         <!-- protobuf -->
@@ -25,7 +37,8 @@
         <dependency>
             <groupId>com.google.flatbuffers</groupId>
             <artifactId>flatbuffers-java</artifactId>
-            <version>22.10.26</version>
+            <!--最新的拉不下来，先用这2.0.8的-->
+            <version>2.0.8</version>
         </dependency>
 
         <!--avro -->
@@ -39,6 +52,12 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>5.8.9</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.supermap.sps</groupId>
+            <artifactId>sps-core</artifactId>
+            <version>11.0.0</version>
         </dependency>
     </dependencies>
 

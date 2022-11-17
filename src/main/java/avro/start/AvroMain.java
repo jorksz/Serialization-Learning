@@ -39,7 +39,7 @@ public class AvroMain {
         User user = null;
         while (dataFileReader.hasNext()) {
             user = dataFileReader.next(user);
+            //System.out.println(user);
         }
-        System.out.println(user);
     }
 }

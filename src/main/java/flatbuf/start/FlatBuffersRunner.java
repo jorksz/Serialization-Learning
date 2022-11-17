@@ -46,7 +46,7 @@ public class FlatBuffersRunner {
         ByteBuffer bb = ByteBuffer.wrap(data);
         Process process = Process.getRootAsProcess(bb);
         System.out.println("flatbuf 序列化和反序列化花费时间:" + DateUtil.formatBetween(System.currentTimeMillis() - time));
-        System.out.println("flatbuf 持久化文件process.flatbuf大小:" + FileUtil.size(new File(FILE_NAME)));
+       // System.out.println("flatbuf 持久化文件process.flatbuf大小:" + FileUtil.size(new File(FILE_NAME)));
     }
 
     public static void main(String[] args) throws IOException {
@@ -56,9 +56,8 @@ public class FlatBuffersRunner {
     public static int[] initInput(FlatBufferBuilder builder) {
         int len = 2;
         int[] times = new int[len];
-        for (int i = 0; i < len; i++) {
-            times[i] = Input.createInput(builder, builder.createString("recursion"), builder.createString("recursion"));
-        }
+        times[0] = Input.createInput(builder, builder.createString("recursion"), builder.createString("true"));
+        times[1] = Input.createInput(builder, builder.createString("pattern"), builder.createString(""));
         return times;
     }
 

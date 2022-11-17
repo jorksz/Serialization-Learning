@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process>
+    <factory>iobjects_modelingtools</factory>
+    <namespace>com.supermap.modelingtools.iterator</namespace>
+    <name>fileiterator</name>
+    <title>迭代文件</title>
+    <id>fileiterator</id>
+    <version>1.0</version>
+    <loopMode>EACH_MATCH</loopMode>
+    <inputs>
+       <input>
+          <inputName>recursion</inputName>
+          <value>true</value>
+       </input>
+       <input>
+       <inputName>pattern</inputName>
+		<value/>
+       </input>
+    </inputs>
+    <outputs>
+        <output>
+           <outputName>iteratorResult</outputName>
+           <title>文件路径集合</title>
+           <id>fileiterator.iteratorResult</id>
+        </output>
+    </outputs>
+</process>
