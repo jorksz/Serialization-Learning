@@ -1,4 +1,5 @@
 import flatbuf.start.FlatBuffersRunner;
+import json.start.JsonRunner;
 import protobuf.start.ProtobufRunner;
 import xml.start.XmlRunner;
 
@@ -15,5 +16,7 @@ public class SerializationProtocolSimpleTest {
         FlatBuffersRunner.runFlatBuffers();
         System.out.println(" ");
         XmlRunner.runningXml();
+        System.out.println(" ");
+        JsonRunner.jsonRunner();
     }
 }
